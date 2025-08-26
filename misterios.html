@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santo Rosario - Consideración de los misterios</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilo personalizado para usar la fuente Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent; /* Evita el destello azul en móviles al tocar */
+        }
+        /* Estilo para la barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b; /* slate-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #38bdf8; /* sky-400 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0ea5e9; /* sky-500 */
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 antialiased">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-6xl">
+
+        <header class="text-center mb-8">
+            <h1 class="text-4xl sm:text-5xl font-bold text-sky-400 tracking-tight">Santo Rosario</h1>
+            <p class="text-slate-400 mt-2">Consideración de los misterios</p>
+        </header>
+
+        <!-- Reproductor de Audio Fijo -->
+        <div id="audio-player-container" class="sticky top-4 z-10 bg-slate-800/50 backdrop-blur-lg p-4 rounded-xl shadow-2xl mb-8 border border-slate-700">
+            <p class="text-sm text-slate-400 mb-2">Reproduciendo ahora:</p>
+            <h3 id="now-playing" class="text-lg font-semibold text-white truncate">Ninguno</h3>
+            <audio id="main-audio-player" controls class="w-full mt-2"></audio>
+        </div>
+
+        <!-- Grid de Misterios -->
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+
+            <!-- Misterios Gozosos -->
+            <div class="mystery-card bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col border border-slate-700 transition-all duration-300 hover:border-sky-500/50">
+                <h2 class="text-2xl font-semibold text-sky-500 mb-4">Misterios Gozosos</h2>
+                <ol class="list-decimal list-inside space-y-2 text-slate-300 flex-grow">
+                    <li>La Encarnación del Hijo de Dios.</li>
+                    <li>La Visitación de Nuestra Señora a Santa Isabel.</li>
+                    <li>El Nacimiento del Hijo de Dios.</li>
+                    <li>La Purificación de la Virgen Santísima.</li>
+                    <li>La Pérdida del Niño Jesús y su hallazgo en el templo.</li>
+                </ol>
+                <button 
+                    class="play-btn mt-6 bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-opacity-75 self-start"
+                    data-src="https://gabrielbailly-25.github.io/considera-misterios/audios/gozosos.m4a"
+                    data-title="Misterios Gozosos">
+                    Reproducir
+                </button>
+            </div>
+
+            <!-- Misterios Luminosos -->
+            <div class="mystery-card bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col border border-slate-700 transition-all duration-300 hover:border-sky-500/50">
+                <h2 class="text-2xl font-semibold text-sky-500 mb-4">Misterios Luminosos</h2>
+                <ol class="list-decimal list-inside space-y-2 text-slate-300 flex-grow">
+                    <li>El Bautismo de Jesús en el Jordán.</li>
+                    <li>La autorrevelación de Jesús en las bodas de Caná.</li>
+                    <li>El anuncio del Reino de Dios invitando a la conversión.</li>
+                    <li>La Transfiguración.</li>
+                    <li>La Institución de la Eucaristía.</li>
+                </ol>
+                <button 
+                    class="play-btn mt-6 bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-opacity-75 self-start"
+                    data-src="https://gabrielbailly-25.github.io/considera-misterios/audios/luminosos.m4a"
+                    data-title="Misterios Luminosos">
+                    Reproducir
+                </button>
+            </div>
+
+            <!-- Misterios Dolorosos -->
+            <div class="mystery-card bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col border border-slate-700 transition-all duration-300 hover:border-sky-500/50">
+                <h2 class="text-2xl font-semibold text-sky-500 mb-4">Misterios Dolorosos</h2>
+                <ol class="list-decimal list-inside space-y-2 text-slate-300 flex-grow">
+                    <li>La Oración de Nuestro Señor en el Huerto.</li>
+                    <li>La Flagelación del Señor.</li>
+                    <li>La Coronación de espinas.</li>
+                    <li>El Camino del Monte Calvario.</li>
+                    <li>La Crucifixión y Muerte de Nuestro Señor.</li>
+                </ol>
+                <button 
+                    class="play-btn mt-6 bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-opacity-75 self-start"
+                    data-src="https://gabrielbailly-25.github.io/considera-misterios/audios/dolorosos.m4a"
+                    data-title="Misterios Dolorosos">
+                    Reproducir
+                </button>
+            </div>
+
+            <!-- Misterios Gloriosos -->
+            <div class="mystery-card bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col border border-slate-700 transition-all duration-300 hover:border-sky-500/50">
+                <h2 class="text-2xl font-semibold text-sky-500 mb-4">Misterios Gloriosos</h2>
+                <ol class="list-decimal list-inside space-y-2 text-slate-300 flex-grow">
+                    <li>La Resurrección del Señor.</li>
+                    <li>La Ascensión del Señor.</li>
+                    <li>La Venida del Espíritu Santo.</li>
+                    <li>La Asunción de Nuestra Señora a los Cielos.</li>
+                    <li>La Coronación de la Santísima Virgen.</li>
+                </ol>
+                <button 
+                    class="play-btn mt-6 bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-opacity-75 self-start"
+                    data-src="https://gabrielbailly-25.github.io/considera-misterios/audios/gloriosos.m4a"
+                    data-title="Misterios Gloriosos">
+                    Reproducir
+                </button>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audioPlayer = document.getElementById('main-audio-player');
+            const nowPlaying = document.getElementById('now-playing');
+            const playButtons = document.querySelectorAll('.play-btn');
+            const mysteryCards = document.querySelectorAll('.mystery-card');
+
+            playButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const audioSrc = button.dataset.src;
+                    const audioTitle = button.dataset.title;
+
+                    // --- Carga de Audio Mejorada ---
+                    // En lugar de cambiar solo el 'src', eliminamos las fuentes anteriores
+                    // y añadimos una nueva. Esto es más robusto para diferentes navegadores.
+                    
+                    // 1. Limpia las fuentes de audio anteriores que pueda tener el reproductor.
+                    while (audioPlayer.firstChild) {
+                        audioPlayer.removeChild(audioPlayer.firstChild);
+                    }
+
+                    // 2. Crea un nuevo elemento <source>
+                    const source = document.createElement('source');
+                    source.src = audioSrc;
+                    // 3. Especifica el tipo MIME para archivos .m4a, que es 'audio/mp4'.
+                    // Esto ayuda al navegador a entender qué tipo de archivo es.
+                    source.type = 'audio/mp4'; 
+                    
+                    // 4. Añade la nueva fuente al reproductor de audio.
+                    audioPlayer.appendChild(source);
+                    
+                    // 5. Carga el nuevo medio y lo reproduce.
+                    audioPlayer.load();
+                    audioPlayer.play().catch(e => console.error("Error al intentar reproducir el audio:", e));
+                    
+                    nowPlaying.textContent = audioTitle;
+
+
+                    // --- Estilos para indicar la reproducción activa ---
+                    
+                    // 1. Quita el estado activo de todos los botones y tarjetas
+                    playButtons.forEach(btn => {
+                        btn.classList.remove('bg-green-500', 'hover:bg-green-400');
+                        btn.classList.add('bg-sky-600', 'hover:bg-sky-500');
+                        btn.textContent = 'Reproducir';
+                    });
+                     mysteryCards.forEach(card => {
+                        card.classList.remove('ring-2', 'ring-sky-500');
+                    });
+
+                    // 2. Añade el estado activo al botón y tarjeta seleccionados
+                    button.classList.remove('bg-sky-600', 'hover:bg-sky-500');
+                    button.classList.add('bg-green-500', 'hover:bg-green-400');
+                    button.textContent = 'Reproduciendo...';
+                    button.closest('.mystery-card').classList.add('ring-2', 'ring-sky-500');
+                });
+            });
+            
+            // Opcional: Cuando el audio termina, resetea el botón
+            audioPlayer.addEventListener('ended', () => {
+                 playButtons.forEach(btn => {
+                    if (btn.textContent === 'Reproduciendo...') {
+                        btn.classList.remove('bg-green-500', 'hover:bg-green-400');
+                        btn.classList.add('bg-sky-600', 'hover:bg-sky-500');
+                        btn.textContent = 'Reproducir';
+                    }
+                });
+                mysteryCards.forEach(card => {
+                    card.classList.remove('ring-2', 'ring-sky-500');
+                });
+                nowPlaying.textContent = 'Selecciona un misterio';
+            });
+
+            // Manejo de errores de carga de audio
+            audioPlayer.addEventListener('error', () => {
+                const playingButton = document.querySelector('.play-btn.bg-green-500');
+                let title = "el audio";
+                if(playingButton) {
+                    title = playingButton.dataset.title;
+                }
+                nowPlaying.textContent = `Error al cargar: ${title}`;
+                console.error(`No se pudo cargar el archivo de audio. Verifica que la ruta y el formato son correctos.`);
+            });
+        });
+    </script>
+</body>
+</html>
