@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santo Rosario - Consideración de los misterios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/gabrielbailly/considera-misterios/main/icons/icon-192x192.png">
+  <style>
+    body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1e293b; }
+    ::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #0ea5e9; }
+    .version-switch { position: relative; width: 54px; height: 30px; flex: 0 0 auto; }
+    .version-switch input { opacity: 0; width: 0; height: 0; }
+    .version-slider { position: absolute; inset: 0; cursor: pointer; background: #475569; border-radius: 9999px; transition: .2s; }
+    .version-slider::before { content: ''; position: absolute; width: 24px; height: 24px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: .2s; box-shadow: 0 1px 5px rgba(0,0,0,.35); }
+    .version-switch input:checked + .version-slider { background: #0ea5e9; }
+    .version-switch input:checked + .version-slider::before { transform: translateX(24px); }
+    .version-switch input:focus-visible + .version-slider { outline: 3px solid rgba(56,189,248,.45); outline-offset: 3px; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-200 antialiased">
+  <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-6xl pb-24">
+    <header class="text-center mb-8">
+      <h1 class="text-4xl sm:text-5xl font-bold text-sky-400 tracking-tight">Santo Rosario</h1>
+      <p class="text-slate-400 mt-2">Consideración de los misterios</p>
+      <p class="text-slate-300 mt-4 max-w-3xl mx-auto text-balance">Audios breves basados en textos de san Josemaría para ayudar a hacer la consideración de los misterios del rosario.</p>
+    </header>
+
+    <section class="bg-slate-800 border border-slate-700 rounded-xl p-4 sm:p-5 mb-6 shadow-lg" aria-label="Versión de audio">
+      <div class="flex items-center justify-between gap-4 max-w-xl mx-auto">
+        <div class="min-w-0">
+          <p class="text-sm text-slate-400">Versión de audio</p>
+          <p id="version-label" class="font-semibold text-white mt-1">Grabación original</p>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <span id="original-label" class="text-sm font-semibold text-sky-400">Original</span>
+          <label class="version-switch" aria-label="Cambiar entre grabación original y voz IA">
+            <input id="audio-version-switch" type="checkbox" role="switch" aria-checked="false">
+            <span class="version-slider"></span>
+          </label>
+          <span id="ai-label" class="text-sm font-semibold text-slate-500">Voz IA</span>
+        </div>
+      </div>
+      <p id="version-help" class="text-xs sm:text-sm text-slate-400 text-center mt-3">Voz y grabación realizadas por Gabriel Bailly-Bailliere Torres-Pardo.</p>
+    </section>
+
+    <div id="audio-player-container" class="sticky top-4 z-10 bg-slate-800/70 backdrop-blur-lg p-4 rounded-xl shadow-2xl mb-8 border border-slate-700">
+      <p class="text-sm text-slate-400 mb-2">Reproduciendo ahora:</p>
+      <div class="flex items-baseline justify-between gap-3">
+        <h3 id="now-playing" class="text-lg font-semibold text-white truncate">Ninguno</h3>
+        <span id="now-version" class="text-xs font-semibold text-sky-400 whitespace-nowrap">Original</span>
+      </div>
+      <audio id="main-audio-player" controls class="w-full mt-2"></audio>
+      <p id="audio-error" class="hidden mt-3 text-sm text-rose-300 bg-rose-950/40 border border-rose-900 rounded-lg px-3 py-2"></p>
+    </div>
+
+    <main class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      <div class="mystery-card bg-slate-800 p-6 rounded-xl shadow-lg flex justify-center items-center gap-4 border border-slate-700 transition-all duration-300 hover:border-sky-500/50">
+        <button class="play-btn flex-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400" data-key="gozosos" data-title="Misterios Gozosos">Gozosos</button>
+        <button class="play-btn flex-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400" data-key="dolorosos" data-title="Misterios Dolorosos">Dolorosos</button>
+      </div>
+      <div class="mystery-card bg-slate-800 p-6 rounded-xl shadow-lg flex justify-center items-center gap-4 border border-slate-700 transition-all duration-300 hover:border-sky-500/50">
+        <button class="play-btn flex-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400" data-key="luminosos" data-title="Misterios Luminosos">Luminosos</button>
+        <button class="play-btn flex-1 bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400" data-key="gloriosos" data-title="Misterios Gloriosos">Gloriosos</button>
+      </div>
+    </main>
+
+    <footer class="mt-12 pt-8 border-t border-slate-700 text-center text-sm text-slate-400">
+      <p id="credit-line" class="mb-4">Grabación realizada por Gabriel Bailly-Bailliere Torres-Pardo.</p>
+      <div>
+        <h4 class="font-semibold text-slate-300 mb-2">Música de fondo utilizada</h4>
+        <ul class="space-y-1">
+          <li>Ave Verum Corpus – Wolfgang Amadeus Mozart</li>
+          <li>Adagio for Strings – Samuel Barber</li>
+          <li>Concierto de Brandeburgo n.º 3 (Adagio) – Johann Sebastian Bach</li>
+          <li>Aleluya, del Oratorio El Mesías – Georg Friedrich Händel</li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+  <div id="install-banner" class="hidden fixed bottom-0 left-0 right-0 bg-sky-600 text-white p-4 text-center flex justify-center items-center gap-4 z-50 shadow-lg">
+    <p class="text-sm sm:text-base">Añadir a pantalla de inicio para acceso rápido.</p>
+    <button id="install-button" class="bg-white text-sky-700 font-bold py-2 px-4 rounded-lg hover:bg-slate-200">Instalar</button>
+  </div>
+  <div id="ios-install-banner" class="hidden fixed bottom-0 left-0 right-0 bg-slate-800 text-white p-4 text-center z-50 shadow-lg">
+    <p class="text-sm sm:text-base">Para instalar, pulsa Compartir y luego “Añadir a pantalla de inicio”.</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const audioPlayer = document.getElementById('main-audio-player');
+      const nowPlaying = document.getElementById('now-playing');
+      const nowVersion = document.getElementById('now-version');
+      const playButtons = [...document.querySelectorAll('.play-btn')];
+      const versionSwitch = document.getElementById('audio-version-switch');
+      const versionLabel = document.getElementById('version-label');
+      const versionHelp = document.getElementById('version-help');
+      const originalLabel = document.getElementById('original-label');
+      const aiLabel = document.getElementById('ai-label');
+      const creditLine = document.getElementById('credit-line');
+      const audioError = document.getElementById('audio-error');
+
+      const audioSources = {
+        original: {
+          gozosos: 'https://raw.githubusercontent.com/gabrielbailly/considera-misterios/main/audios/gozosos.m4a',
+          dolorosos: 'https://raw.githubusercontent.com/gabrielbailly/considera-misterios/main/audios/dolorosos.m4a',
+          luminosos: 'https://raw.githubusercontent.com/gabrielbailly/considera-misterios/main/audios/luminosos.m4a',
+          gloriosos: 'https://raw.githubusercontent.com/gabrielbailly/considera-misterios/main/audios/gloriosos.m4a'
+        },
+        ai: {
+          gozosos: 'audios-ia/gozosos.wav',
+          dolorosos: 'audios-ia/dolorosos.wav',
+          luminosos: 'audios-ia/luminosos.wav',
+          gloriosos: 'audios-ia/gloriosos.wav'
+        }
+      };
+
+      let version = 'original';
+      let currentKey = null;
+      let currentButton = null;
+      let pendingSeek = null;
+      let shouldResume = false;
+
+      function sourceType(src) {
+        return src.endsWith('.wav') ? 'audio/wav' : 'audio/mp4';
+      }
+
+      function resetButton() {
+        if (!currentButton) return;
+        currentButton.classList.remove('bg-green-500', 'hover:bg-green-400');
+        currentButton.classList.add('bg-sky-600', 'hover:bg-sky-500');
+        currentButton.textContent = currentButton.dataset.title.split(' ')[1];
+      }
+
+      function highlightButton(button) {
+        resetButton();
+        currentButton = button;
+        button.classList.remove('bg-sky-600', 'hover:bg-sky-500');
+        button.classList.add('bg-green-500', 'hover:bg-green-400');
+        button.textContent = 'Reproduciendo...';
+      }
+
+      function setSource(key, autoplay = true, seekTo = 0) {
+        const button = playButtons.find(btn => btn.dataset.key === key);
+        if (!button) return;
+        audioError.classList.add('hidden');
+        audioError.textContent = '';
+        currentKey = key;
+        pendingSeek = seekTo;
+        shouldResume = autoplay;
+        const src = audioSources[version][key];
+        audioPlayer.pause();
+        audioPlayer.innerHTML = '';
+        const source = document.createElement('source');
+        source.src = src;
+        source.type = sourceType(src);
+        audioPlayer.appendChild(source);
+        nowPlaying.textContent = button.dataset.title;
+        nowVersion.textContent = version === 'original' ? 'Original' : 'Voz IA';
+        audioPlayer.load();
+      }
+
+      function updateVersionUI() {
+        const isAI = version === 'ai';
+        versionSwitch.checked = isAI;
+        versionSwitch.setAttribute('aria-checked', String(isAI));
+        versionLabel.textContent = isAI ? 'Voz generada con IA' : 'Grabación original';
+        versionHelp.textContent = isAI
+          ? 'Versión alternativa generada con voz sintética para la consideración de los misterios.'
+          : 'Voz y grabación realizadas por Gabriel Bailly-Bailliere Torres-Pardo.';
+        originalLabel.className = `text-sm font-semibold ${isAI ? 'text-slate-500' : 'text-sky-400'}`;
+        aiLabel.className = `text-sm font-semibold ${isAI ? 'text-sky-400' : 'text-slate-500'}`;
+        nowVersion.textContent = isAI ? 'Voz IA' : 'Original';
+        creditLine.textContent = isAI
+          ? 'Versión de voz alternativa generada mediante inteligencia artificial.'
+          : 'Grabación realizada por Gabriel Bailly-Bailliere Torres-Pardo.';
+      }
+
+      versionSwitch.addEventListener('change', () => {
+        const wasPlaying = !audioPlayer.paused && !audioPlayer.ended;
+        const time = Number.isFinite(audioPlayer.currentTime) ? audioPlayer.currentTime : 0;
+        version = versionSwitch.checked ? 'ai' : 'original';
+        updateVersionUI();
+        if (currentKey) setSource(currentKey, wasPlaying, time);
+      });
+
+      playButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const key = button.dataset.key;
+          if (currentKey === key && !audioPlayer.paused) {
+            audioPlayer.pause();
+            return;
+          }
+          if (currentKey === key && audioPlayer.paused && audioPlayer.currentSrc) {
+            audioPlayer.play().catch(() => {});
+            return;
+          }
+          setSource(key, true, 0);
+        });
+      });
+
+      audioPlayer.addEventListener('loadedmetadata', () => {
+        if (pendingSeek !== null && Number.isFinite(audioPlayer.duration)) {
+          audioPlayer.currentTime = Math.min(pendingSeek, Math.max(0, audioPlayer.duration - 0.1));
+        }
+        pendingSeek = null;
+        if (shouldResume) {
+          shouldResume = false;
+          audioPlayer.play().catch(() => {});
+        }
+      });
+
+      audioPlayer.addEventListener('play', () => {
+        const button = playButtons.find(btn => btn.dataset.key === currentKey);
+        if (button) highlightButton(button);
+      });
+
+      audioPlayer.addEventListener('pause', () => {
+        if (!audioPlayer.ended) resetButton();
+      });
+
+      audioPlayer.addEventListener('ended', () => {
+        resetButton();
+        currentButton = null;
+        nowPlaying.textContent = 'Selecciona un misterio';
+      });
+
+      audioPlayer.addEventListener('error', () => {
+        resetButton();
+        const label = version === 'ai' ? 'de voz IA' : 'original';
+        audioError.textContent = version === 'ai'
+          ? `No se encuentra el audio ${label} de este grupo. Comprueba que exista el archivo audios-ia/${currentKey}.wav.`
+          : `No se ha podido cargar el audio ${label}.`;
+        audioError.classList.remove('hidden');
+        nowPlaying.textContent = 'Audio no disponible';
+      });
+
+      updateVersionUI();
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(error => console.log('Error al registrar el Service Worker:', error));
+      });
+    }
+
+    const isIOS = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    const isInStandaloneMode = () => ('standalone' in window.navigator) && window.navigator.standalone;
+    if (isIOS() && !isInStandaloneMode()) document.getElementById('ios-install-banner')?.classList.remove('hidden');
+
+    let deferredPrompt;
+    const installBanner = document.getElementById('install-banner');
+    const installButton = document.getElementById('install-button');
+    window.addEventListener('beforeinstallprompt', e => {
+      if (!isIOS()) { e.preventDefault(); deferredPrompt = e; installBanner?.classList.remove('hidden'); }
+    });
+    installButton?.addEventListener('click', () => {
+      installBanner?.classList.add('hidden');
+      deferredPrompt?.prompt();
+      deferredPrompt = null;
+    });
+    window.addEventListener('appinstalled', () => {
+      installBanner?.classList.add('hidden');
+      deferredPrompt = null;
+    });
+  </script>
+</body>
+</html>
