@@ -119,10 +119,10 @@
           gloriosos: 'https://raw.githubusercontent.com/gabrielbailly/considera-misterios/main/audios/gloriosos.m4a'
         },
         ai: {
-          gozosos: 'audios-ia/gozosos.wav',
-          dolorosos: 'audios-ia/dolorosos.wav',
-          luminosos: 'audios-ia/luminosos.wav',
-          gloriosos: 'audios-ia/gloriosos.wav'
+          gozosos: 'audios-ia/gozosos.m4a',
+          dolorosos: 'audios-ia/dolorosos.m4a',
+          luminosos: 'audios-ia/luminosos.m4a',
+          gloriosos: 'audios-ia/gloriosos.m4a'
         }
       };
 
@@ -133,7 +133,7 @@
       let shouldResume = false;
 
       function sourceType(src) {
-        return src.endsWith('.wav') ? 'audio/wav' : 'audio/mp4';
+        return src.endsWith('.wav') ? 'audio/mp4' : 'audio/mp4';
       }
 
       function resetButton() {

@@ -1,0 +1,8 @@
+Coloca aquí los cuatro audios generados con IA con estos nombres exactos:
+
+gozosos.m4a
+dolorosos.m4a
+luminosos.m4a
+gloriosos.m4a
+
+La web los seleccionará automáticamente cuando el usuario active el switch "Voz IA".

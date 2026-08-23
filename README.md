@@ -11,10 +11,10 @@ Se siguen reproduciendo directamente desde el repositorio público actual.
 ## Audios IA
 Coloca en `audios-ia/` los archivos:
 
-- `gozosos.wav`
-- `dolorosos.wav`
-- `luminosos.wav`
-- `gloriosos.wav`
+- `gozosos.m4a`
+- `dolorosos.m4a`
+- `luminosos.m4a`
+- `gloriosos.m4a`
 
 El usuario puede cambiar de versión con el switch. Si lo hace durante la reproducción, la app conserva el mismo grupo e intenta mantener el punto temporal.
 
